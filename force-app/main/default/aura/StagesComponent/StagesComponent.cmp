@@ -1,0 +1,69 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" controller="StagesController" >
+<lightning:layout class="slds-page-header slds-page-header--object-home">
+        <lightning:layoutItem>
+            <lightning:icon iconName="standard:scan_card" alternativeText="Mark Opportunities Closed"/>
+        </lightning:layoutItem>
+        <lightning:layoutItem padding="horizontal-small">
+            <div class="page-section page-header">
+                <h1 class="slds-text-heading--label">Opportunities</h1>
+                <h2 class="slds-text-heading--medium">Mark Opportunities Closed</h2>
+            </div>
+        </lightning:layoutItem>
+    </lightning:layout>
+    
+    
+    <aura:attribute name="stages" type="List" />
+
+            <aura:attribute name="selectedStage" type="String" />
+
+            <aura:handler name="init" value="{!this}" action="{!c.loadOptions}" />
+   <aura:handler event="c:NavigateToC2" action="{!c.gotoURL}"/>
+
+
+    <lightning:layout class="slds-page-header slds-page-header--object-home">
+
+        <lightning:layoutItem>
+
+            <lightning:icon iconName="standard:scan_card" alternativeText="Select Stages"/>
+
+        </lightning:layoutItem>
+
+    </lightning:layout>
+
+    <lightning:layout>
+
+        <lightning:layoutItem padding="around-small" size="6">
+
+        <div aria-labelledby="newexpenseform">
+
+        <!-- BOXED AREA -->
+
+        <fieldset class="slds-box slds-theme--default slds-container--small">
+
+<c:MultiSelect aura:id="jobLocationMS" mslabel="Job Location" msoptions="{!v.stages}" />
+
+            <!--<lightning:select name="mySelect1" label="Stage:" aura:id="mySelect1" value="{!v.selectedStage}" onchange="{!c.getNewValue}">
+
+                <aura:iteration items="{!v.stages}" var="item">
+
+                    <option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+
+                </aura:iteration>
+
+            </lightning:select>-->
+
+            <lightning:button label="View" 
+            onclick="{!c.navigate}"/>
+            
+{!v.body}
+   
+
+      </fieldset>
+
+    </div>
+
+</lightning:layoutItem>
+
+</lightning:layout>
+
+</aura:component>

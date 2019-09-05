@@ -1,0 +1,84 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" controller="StagesController" >
+
+            <aura:handler name="init" value="{!this}" action="{!c.loadOptions}" />
+    <aura:attribute name="accounts" type="List" />
+
+    <aura:attribute type="Account[]" name="selectedAccount" default="[]" />
+    <aura:attribute name="newContact" type="Contact"
+         default="{ 'sobjectType': 'Contact',
+                        'FirstName': '',
+                        'LastName': '',
+                        'Phone':'',
+                  	  	'AccountId':0}"/>
+    <!-- PAGE HEADER -->
+    <lightning:layout class="slds-page-header slds-page-header--object-home">
+        <lightning:layoutItem>
+            <lightning:icon iconName="standard:scan_card" alternativeText="Contacts"/>
+        </lightning:layoutItem>
+        <lightning:layoutItem padding="horizontal-small">
+            <div class="page-section page-header">
+                <h1 class="slds-text-heading--label">Contacts</h1>
+                <h2 class="slds-text-heading--medium">Add Contact</h2>
+            </div>
+        </lightning:layoutItem>
+    </lightning:layout>
+    <!-- / PAGE HEADER -->
+    <!-- NEW EXPENSE FORM -->
+    <lightning:layout>
+        <lightning:layoutItem padding="around-small" size="6">
+        <div aria-labelledby="newexpenseform">
+        <!-- BOXED AREA -->
+        <fieldset class="slds-box slds-theme--default slds-container--small">
+        <legend id="newexpenseform" class="slds-text-heading--small 
+          slds-p-vertical--medium">
+          Add Contact
+        </legend>
+  
+        <!-- CREATE NEW EXPENSE FORM -->
+        <form class="slds-form--stacked">          
+            <lightning:input aura:id="expenseform" label="First Name"
+                             name="FirstName"
+                             value="{!v.newContact.FirstName}"
+                             required="true"/> 
+            <lightning:input aura:id="expenseform" label="Last Name"
+                             name="LastName"
+                             value="{!v.newContact.LastName}"
+                             required="true"/> 
+            <lightning:input type="phone" aura:id="phone" label="Phone"
+                             name="Phone"
+                             formatter="phone"
+                             value="{!v.newContact.Phone}"/>
+            
+            <lightning:select name="AccountId" label="Account:" aura:id="mySelect1" value="{!v.newContact.AccountId}" onchange="{!c.addSelectedAccount}">
+
+                <aura:iteration items="{!v.accounts}" var="item">
+
+                    <option text="{!item.Name}" value="{!item.Id}" selected="{!item.selected}"/>
+
+                </aura:iteration>
+
+            </lightning:select>
+            <lightning:layoutItem padding="around-small" size="6">
+            <aura:iteration items="{!v.selectedAccount}" var="account">
+                            <lightning:pill class="slds-m-around_xx-small" label="{!account.Name}" name="{!account.Id}"
+                                onremove="{! c.removeSelectedAccount }">
+                                <aura:set attribute="media">
+                                    <lightning:icon size="x-small" alternativeText="icon" />
+                                </aura:set>
+                            </lightning:pill>
+                        </aura:iteration>
+            </lightning:layoutItem>
+            <lightning:button label="Create Contact" 
+                              class="slds-m-top--medium"
+                              variant="brand"
+                              onclick="{!c.clickCreate}"/>
+        </form>
+        <!-- / CREATE NEW EXPENSE FORM -->
+  
+      </fieldset>
+      <!-- / BOXED AREA -->
+    </div>
+        </lightning:layoutItem>
+    </lightning:layout>
+    <!-- / NEW EXPENSE FORM -->
+</aura:component>

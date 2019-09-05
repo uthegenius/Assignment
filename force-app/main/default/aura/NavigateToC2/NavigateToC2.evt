@@ -1,0 +1,5 @@
+<aura:event access="global" type="APPLICATION">
+ 
+   <aura:attribute name="stages" type="String[]"/>
+ 
+</aura:event>
